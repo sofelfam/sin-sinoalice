@@ -1,0 +1,133 @@
+## Created with gatsby-plugin-netlify
+
+/*
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+/component---cache-caches-gatsby-plugin-offline-app-shell-js-ad6431e4664bcf916d19.js
+  Cache-Control: public, max-age=31536000, immutable
+/component---src-pages-404-tsx-86f8a9b07b91155bd1a9.js
+  Cache-Control: public, max-age=31536000, immutable
+/component---src-pages-about-tsx-ee8174f369a0d59e4b5f.js
+  Cache-Control: public, max-age=31536000, immutable
+/component---src-pages-contact-tsx-c37f00440b018b888f9e.js
+  Cache-Control: public, max-age=31536000, immutable
+/component---src-pages-index-tsx-eb9818e1f4525923f1cf.js
+  Cache-Control: public, max-age=31536000, immutable
+/component---src-pages-calc-nightmare-nightmare-tabs-tsx-47d4a9d115f1f4f0e19e.js
+  Cache-Control: public, max-age=31536000, immutable
+/component---src-pages-calc-nightmare-timer-table-tsx-f387c24c56e0bf9ae17c.js
+  Cache-Control: public, max-age=31536000, immutable
+/component---src-pages-calc-nightmare-index-tsx-f62f8dc1f14375b26e83.js
+  Cache-Control: public, max-age=31536000, immutable
+/component---src-pages-calc-ship-ship-table-tsx-2d9e588a93206f559db6.js
+  Cache-Control: public, max-age=31536000, immutable
+/component---src-pages-calc-ship-index-tsx-4f792abc03de710198ef.js
+  Cache-Control: public, max-age=31536000, immutable
+/webpack-runtime-2de667df459172d9c885.js
+  Cache-Control: public, max-age=31536000, immutable
+/styles.ddebf92b6a7784bde2d2.css
+  Cache-Control: public, max-age=31536000, immutable
+/styles-e383b929d2d4095ae339.js
+  Cache-Control: public, max-age=31536000, immutable
+/framework-cd3e1e804d552fa282ef.js
+  Cache-Control: public, max-age=31536000, immutable
+/app-72c263bce8ce881c6a76.js
+  Cache-Control: public, max-age=31536000, immutable
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+/sw.js
+  Cache-Control: no-cache
+/offline-plugin-app-shell-fallback/
+  Link: </webpack-runtime-2de667df459172d9c885.js>; rel=preload; as=script
+  Link: </styles-e383b929d2d4095ae339.js>; rel=preload; as=script
+  Link: </framework-cd3e1e804d552fa282ef.js>; rel=preload; as=script
+  Link: </app-72c263bce8ce881c6a76.js>; rel=preload; as=script
+  Link: </component---cache-caches-gatsby-plugin-offline-app-shell-js-ad6431e4664bcf916d19.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/offline-plugin-app-shell-fallback/page-data.json>; rel=preload; as=fetch; crossorigin
+/404/
+  Link: </webpack-runtime-2de667df459172d9c885.js>; rel=preload; as=script
+  Link: </styles-e383b929d2d4095ae339.js>; rel=preload; as=script
+  Link: </framework-cd3e1e804d552fa282ef.js>; rel=preload; as=script
+  Link: </app-72c263bce8ce881c6a76.js>; rel=preload; as=script
+  Link: </component---src-pages-404-tsx-86f8a9b07b91155bd1a9.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/404/page-data.json>; rel=preload; as=fetch; crossorigin
+/about/
+  Link: </webpack-runtime-2de667df459172d9c885.js>; rel=preload; as=script
+  Link: </styles-e383b929d2d4095ae339.js>; rel=preload; as=script
+  Link: </framework-cd3e1e804d552fa282ef.js>; rel=preload; as=script
+  Link: </app-72c263bce8ce881c6a76.js>; rel=preload; as=script
+  Link: </component---src-pages-about-tsx-ee8174f369a0d59e4b5f.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/about/page-data.json>; rel=preload; as=fetch; crossorigin
+/contact/
+  Link: </webpack-runtime-2de667df459172d9c885.js>; rel=preload; as=script
+  Link: </styles-e383b929d2d4095ae339.js>; rel=preload; as=script
+  Link: </framework-cd3e1e804d552fa282ef.js>; rel=preload; as=script
+  Link: </app-72c263bce8ce881c6a76.js>; rel=preload; as=script
+  Link: </component---src-pages-contact-tsx-c37f00440b018b888f9e.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/contact/page-data.json>; rel=preload; as=fetch; crossorigin
+/
+  Link: </webpack-runtime-2de667df459172d9c885.js>; rel=preload; as=script
+  Link: </styles-e383b929d2d4095ae339.js>; rel=preload; as=script
+  Link: </framework-cd3e1e804d552fa282ef.js>; rel=preload; as=script
+  Link: </app-72c263bce8ce881c6a76.js>; rel=preload; as=script
+  Link: </component---src-pages-index-tsx-eb9818e1f4525923f1cf.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/index/page-data.json>; rel=preload; as=fetch; crossorigin
+/calc/nightmare/
+  Link: </webpack-runtime-2de667df459172d9c885.js>; rel=preload; as=script
+  Link: </styles-e383b929d2d4095ae339.js>; rel=preload; as=script
+  Link: </framework-cd3e1e804d552fa282ef.js>; rel=preload; as=script
+  Link: </app-72c263bce8ce881c6a76.js>; rel=preload; as=script
+  Link: </component---src-pages-calc-nightmare-nightmare-tabs-tsx-47d4a9d115f1f4f0e19e.js>; rel=preload; as=script
+  Link: </component---src-pages-calc-nightmare-timer-table-tsx-f387c24c56e0bf9ae17c.js>; rel=preload; as=script
+  Link: </component---src-pages-calc-nightmare-index-tsx-f62f8dc1f14375b26e83.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/calc/nightmare/page-data.json>; rel=preload; as=fetch; crossorigin
+/calc/nightmare/nightmare-tabs/
+  Link: </webpack-runtime-2de667df459172d9c885.js>; rel=preload; as=script
+  Link: </styles-e383b929d2d4095ae339.js>; rel=preload; as=script
+  Link: </framework-cd3e1e804d552fa282ef.js>; rel=preload; as=script
+  Link: </app-72c263bce8ce881c6a76.js>; rel=preload; as=script
+  Link: </component---src-pages-calc-nightmare-nightmare-tabs-tsx-47d4a9d115f1f4f0e19e.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/calc/nightmare/nightmare-tabs/page-data.json>; rel=preload; as=fetch; crossorigin
+/calc/nightmare/timer-table/
+  Link: </webpack-runtime-2de667df459172d9c885.js>; rel=preload; as=script
+  Link: </styles-e383b929d2d4095ae339.js>; rel=preload; as=script
+  Link: </framework-cd3e1e804d552fa282ef.js>; rel=preload; as=script
+  Link: </app-72c263bce8ce881c6a76.js>; rel=preload; as=script
+  Link: </component---src-pages-calc-nightmare-nightmare-tabs-tsx-47d4a9d115f1f4f0e19e.js>; rel=preload; as=script
+  Link: </component---src-pages-calc-nightmare-timer-table-tsx-f387c24c56e0bf9ae17c.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/calc/nightmare/timer-table/page-data.json>; rel=preload; as=fetch; crossorigin
+/calc/ship/
+  Link: </webpack-runtime-2de667df459172d9c885.js>; rel=preload; as=script
+  Link: </styles-e383b929d2d4095ae339.js>; rel=preload; as=script
+  Link: </framework-cd3e1e804d552fa282ef.js>; rel=preload; as=script
+  Link: </app-72c263bce8ce881c6a76.js>; rel=preload; as=script
+  Link: </component---src-pages-calc-ship-ship-table-tsx-2d9e588a93206f559db6.js>; rel=preload; as=script
+  Link: </component---src-pages-calc-ship-index-tsx-4f792abc03de710198ef.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/calc/ship/page-data.json>; rel=preload; as=fetch; crossorigin
+/calc/ship/ship-table/
+  Link: </webpack-runtime-2de667df459172d9c885.js>; rel=preload; as=script
+  Link: </styles-e383b929d2d4095ae339.js>; rel=preload; as=script
+  Link: </framework-cd3e1e804d552fa282ef.js>; rel=preload; as=script
+  Link: </app-72c263bce8ce881c6a76.js>; rel=preload; as=script
+  Link: </component---src-pages-calc-ship-ship-table-tsx-2d9e588a93206f559db6.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/calc/ship/ship-table/page-data.json>; rel=preload; as=fetch; crossorigin
+/404.html
+  Link: </webpack-runtime-2de667df459172d9c885.js>; rel=preload; as=script
+  Link: </styles-e383b929d2d4095ae339.js>; rel=preload; as=script
+  Link: </framework-cd3e1e804d552fa282ef.js>; rel=preload; as=script
+  Link: </app-72c263bce8ce881c6a76.js>; rel=preload; as=script
+  Link: </component---src-pages-404-tsx-86f8a9b07b91155bd1a9.js>; rel=preload; as=script
+  Link: </page-data/app-data.json>; rel=preload; as=fetch; crossorigin
+  Link: </page-data/404.html/page-data.json>; rel=preload; as=fetch; crossorigin

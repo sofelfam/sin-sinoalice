@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://sofelfam.github.io/sin-sinoalice/sitemap.xml
+Host: https://sofelfam.github.io
