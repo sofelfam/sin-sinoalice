@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createMuiTheme, ThemeProvider, useTheme } from "@material-ui/core/styles";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import clsx from 'clsx';
@@ -41,9 +41,14 @@ const useStyles = makeStyles((theme: Theme) =>
 const Layout: React.FC = ({ children }) => {
   const theme = useTheme();
   const classes = useStyles();
-  const [open, setOpen] = useState(localStorage.getItem('drawer') === 'open' ? true : false);
-  const [darkMode, setDarkMode] = React.useState(localStorage.getItem('darkMode') === 'on' ? true : false);
+  const [open, setOpen] = useState(false);
+  const [darkMode, setDarkMode] = React.useState(false);
   const mobile = useMediaQuery(theme.breakpoints.down('xs'));
+
+  useEffect(() => {
+    setOpen(localStorage.getItem('drawer') === 'open' ? true : false);
+    setDarkMode(localStorage.getItem('darkMode') === 'on' ? true : false);
+  }, []);
 
   const handleDrawerOpen = () => {
     localStorage.setItem('drawer', 'open');
