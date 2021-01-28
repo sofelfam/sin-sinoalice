@@ -27,7 +27,7 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-2de667df459172d9c885.js"
+    "url": "webpack-runtime-d727c5aef00894a330d2.js"
   },
   {
     "url": "styles.ddebf92b6a7784bde2d2.css"
@@ -39,11 +39,11 @@ self.__precacheManifest = [
     "url": "framework-cd3e1e804d552fa282ef.js"
   },
   {
-    "url": "app-72c263bce8ce881c6a76.js"
+    "url": "app-9063b9389f32904d33ac.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "7693d1764ae773b8a1ef375e4eaad8ab"
+    "revision": "0a9c42eae945b12a536e36bb3da5dd60"
   },
   {
     "url": "component---cache-caches-gatsby-plugin-offline-app-shell-js-ad6431e4664bcf916d19.js"
@@ -53,8 +53,24 @@ self.__precacheManifest = [
     "revision": "904bc6e362db841765e92c0140c39d89"
   },
   {
+    "url": "page-data/sq/d/2658404678.json",
+    "revision": "49772848cf15a1706e55d07dd06e8c87"
+  },
+  {
+    "url": "page-data/sq/d/3396289872.json",
+    "revision": "df054de7389916d198a4b6dc8334c348"
+  },
+  {
+    "url": "page-data/sq/d/4159277207.json",
+    "revision": "121f2292aa93a8a37b0dd38b3881e10c"
+  },
+  {
+    "url": "page-data/sq/d/619853725.json",
+    "revision": "93f229ddad0940a10a2c8421c7d15a2c"
+  },
+  {
     "url": "page-data/app-data.json",
-    "revision": "b10fcf1f7e99d920644e915d0289c39d"
+    "revision": "9a4e72e66ccf42669bad9122f2983d56"
   },
   {
     "url": "polyfill-25b73876df0a2c080a82.js"
@@ -65,7 +81,7 @@ self.__precacheManifest = [
   },
   {
     "url": "manifest.webmanifest",
-    "revision": "de2425cf7435d699fba67b1ab875dc07"
+    "revision": "3362454a6e82d920948be255e02d1675"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
@@ -152,12 +168,12 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   lastNavigationRequest = event.request.url
 
   let { pathname } = new URL(event.request.url)
-  pathname = pathname.replace(new RegExp(`^`), ``)
+  pathname = pathname.replace(new RegExp(`^/sin-sinoalice`), ``)
 
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/app-72c263bce8ce881c6a76.js`))) {
+  if (!resources || !(await caches.match(`/sin-sinoalice/app-9063b9389f32904d33ac.js`))) {
     return await fetch(event.request)
   }
 
@@ -170,7 +186,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
     }
   }
 
-  const offlineShell = `/offline-plugin-app-shell-fallback/index.html`
+  const offlineShell = `/sin-sinoalice/offline-plugin-app-shell-fallback/index.html`
   const offlineShellWithKey = workbox.precaching.getCacheKeyForURL(offlineShell)
   return await caches.match(offlineShellWithKey)
 })
