@@ -5,7 +5,6 @@ const backgroundColor = `#09090f`;
 const themeColor = `#3f51b5`;
 
 const siteMetadata = {
-  pathPrefix: "/sin-sinoalice",
   siteTitle,
   siteTitleAlt: `SIN - SINoALICE - @sofelfam/sin-sinoalice`,
   siteHeadline: `SIN - SINoALICE - Tools for SINoALICE from @sofelfam`,
@@ -21,6 +20,7 @@ const siteMetadata = {
 };
 
 export default {
+  pathPrefix: "/sin-sinoalice",
   siteMetadata,
   plugins: [
     `gatsby-plugin-emotion`,
