@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { createMuiTheme, ThemeProvider, useTheme } from "@material-ui/core/styles";
+import { createMuiTheme, ThemeProvider, useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import clsx from 'clsx';
+import '@fontsource/noto-sans-jp'
 
 import Footer from './Footer';
 import Header from './Header';
@@ -23,6 +24,9 @@ const useStyles = makeStyles((theme: Theme) =>
         duration: theme.transitions.duration.leavingScreen,
       }),
       marginLeft: -drawerWidth,
+      [theme.breakpoints.down('xs')]: {
+        padding: 0,
+      },
     },
     contentShift: {
       transition: theme.transitions.create('margin', {
@@ -71,7 +75,7 @@ const Layout: React.FC = ({ children }) => {
   
   const muiTheme = createMuiTheme({
     palette: {
-      type: darkMode ? "dark" : "light",
+      type: darkMode ? 'dark' : 'light',
       primary: {
         main: darkMode ? theme.palette.grey[800] : theme.palette.primary.main
       },
@@ -80,11 +84,16 @@ const Layout: React.FC = ({ children }) => {
       MuiListSubheader: {
         root: {
           fontSize: '2rem',
+          fontFamily: ['Segoe UI', 'Noto Sans JP'].join(','),
         },
       },
       MuiTypography: {
+        root: {
+          fontFamily: ['Segoe UI', 'Noto Sans JP'].join(','),
+        },
         body1: {
           fontSize: '1.5rem',
+          fontFamily: ['Segoe UI', 'Noto Sans JP'].join(','),
         },
         h1: {
           fontSize: '3.2rem',

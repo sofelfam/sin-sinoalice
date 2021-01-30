@@ -11,8 +11,11 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import TimerIcon from '@material-ui/icons/Timer';
+import EventNoteIcon from '@material-ui/icons/EventNote';
+import ContactsIcon from '@material-ui/icons/Contacts';
 import { Divider } from '@material-ui/core';
 import { Link } from 'gatsby';
+import { NestedLists } from 'src/components';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +42,7 @@ function NestedList() {
     <List
       component="nav"
       aria-labelledby="nested-list-subheader"
+      disablePadding={true}
       subheader={
         <ListSubheader component="div" id="nested-list-subheader">
           Calculators
@@ -79,8 +83,20 @@ function NestedList() {
             </ListItemIcon>
             <ListItemText primary="Test2" />
           </ListItem>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Test2" />
+          </ListItem>
         </List>
       </Collapse>
+      <NestedLists
+        topIcon={<StarBorder />}
+        topText={"this"}
+        lists={[{icon: <InboxIcon />, text: "test", link: "/"},
+                {icon: <EventNoteIcon />, text: "test2", link: "test"}]}
+      />
       <Divider />
       <List
         component="nav"
@@ -111,14 +127,19 @@ function NestedList() {
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text) => (
-          <ListItem button key={text}>
-            <ListItemIcon><InboxIcon /></ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem button key='更新履歴' component={Link} to={'/about/changelog'}>
+          <ListItemIcon><EventNoteIcon /></ListItemIcon>
+          <ListItemText primary='更新履歴' />
+        </ListItem>
+        <ListItem button key='Contact' component={Link} to={'/about/contact'}>
+          <ListItemIcon><ContactsIcon /></ListItemIcon>
+          <ListItemText primary='Contact us' />
+        </ListItem>
+        <ListItem button key='Credits' component={Link} to={'/about/credits'}>
+          <ListItemIcon><InboxIcon /></ListItemIcon>
+          <ListItemText primary='Credits' />
+        </ListItem>
       </List>
-      <Divider />
     </List>
   );
 }

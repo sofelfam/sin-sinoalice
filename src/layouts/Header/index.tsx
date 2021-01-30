@@ -17,6 +17,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Brightness7Icon from "@material-ui/icons/Brightness7";
 import Brightness4Icon from "@material-ui/icons/Brightness4";
+import SettingsIcon from '@material-ui/icons/Settings';
 import NestedList from 'src/layouts/Header/nested-list';
 import { Link } from 'gatsby';
 import { Hidden, Tooltip } from '@material-ui/core';
@@ -102,6 +103,10 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingLeft: theme.spacing(3),
       flexDirection: 'column',
       justifyContent: 'center',
+    },
+    drawerFooter: {
+      display: 'flex',
+      padding: theme.spacing(0, 1),
     },
     link: {
       textDecoration: 'none',
@@ -230,9 +235,14 @@ const Header = (props: HeaderProps) => {
           </div>
           <Divider />
           <NestedList />
+          <Divider />
+          <div className={classes.drawerFooter}>
+            <IconButton>
+              <SettingsIcon />
+            </IconButton>
+          </div>
         </Drawer>
       </Hidden>
-
     </div>
   );
 }

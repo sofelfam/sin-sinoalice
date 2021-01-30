@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flex: '1',
       width: '100%',
-      padding: '10vh 2vw 5vw 2vw',
+      padding: '12vh 2vw 5vw 2vw',
       margin: '0 auto',
       '& h1': {
         paddingBottom: '3rem',

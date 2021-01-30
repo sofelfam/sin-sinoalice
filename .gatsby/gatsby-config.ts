@@ -82,8 +82,7 @@ export default {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        // replace "UA-XXXXXXXXX-X" with your own Tracking ID
-        //trackingId: `UA-149661454-1`,
+        //trackingId: `UA-XXXXXXXX-X`,
       },
     },
     // gatsby-plugin-manifest should be described before gatsby-plugin-offline
@@ -102,13 +101,5 @@ export default {
       },
     },
     `gatsby-plugin-offline`,
-    {
-      resolve: 'gatsby-plugin-web-font-loader',
-      options: {
-        google: {
-          families: ['Noto+Sans+JP:400,500,700']
-        },
-      }
-    }
   ],
 };

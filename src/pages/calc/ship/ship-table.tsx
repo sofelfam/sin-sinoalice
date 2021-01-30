@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
     test: {
       overflowX: "auto",
       [theme.breakpoints.down('xs')]: {
-        width: `calc(100vw - 4vw - ${theme.spacing(3)}px * 2)`,
+        width: `calc(100vw - 4vw)`,
       },
     },
     table: {

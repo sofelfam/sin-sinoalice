@@ -33,10 +33,8 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       '& h2': {
         fontSize: '1.8rem',
-        color: '#4F81BD',
         margin: '10px auto',
         width: '100%',
-        background: 'linear-gradient(transparent 80%, #ddd 90%)',
       },
       '& .MuiToggleButton-root': {
         padding: '2px',
@@ -86,7 +84,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     timeDisplayCell: {
       border: 'solid 1px lightgray',
+      width: '10.5rem',
       padding: '0px 10px',
+      textAlign: 'center',
       fontSize: '2rem',
       fontWeight: 'bold',
     },

@@ -1,7 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import { SEO } from 'src/components';
+import AboutMDX from 'src/internal/about.mdx';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -14,16 +16,17 @@ const useStyles = makeStyles(() =>
   })
 );
 
-const notFound = ({ path, className }: { path: string, className: string }) => {
+const About = ({ path, className }: { path: string, className: string }) => {
   const classes = useStyles();
   return(
     <>
-      <SEO title='Not Found' pathname={path} />
+      <SEO title='About' pathname={path} />
       <main className={clsx(className, classes.root)}>
-        <h1>Not Found</h1>
+        <Typography variant="h1">About</Typography>
+        <AboutMDX />
       </main>
     </>
   )
 };
 
-export default notFound;
+export default About;
