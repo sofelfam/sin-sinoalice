@@ -27,23 +27,23 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [
   {
-    "url": "webpack-runtime-d727c5aef00894a330d2.js"
+    "url": "webpack-runtime-d581a5a32884d2d0eaed.js"
   },
   {
-    "url": "styles.ddebf92b6a7784bde2d2.css"
+    "url": "styles.9fd6c3c5b18ab06fd30d.css"
   },
   {
-    "url": "styles-e383b929d2d4095ae339.js"
+    "url": "styles-1043fb1b9b9e69356781.js"
   },
   {
-    "url": "framework-cd3e1e804d552fa282ef.js"
+    "url": "framework-acd7498685eeb36e39da.js"
   },
   {
-    "url": "app-9063b9389f32904d33ac.js"
+    "url": "app-1c48c4ce30e896242bf9.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "0a9c42eae945b12a536e36bb3da5dd60"
+    "revision": "e3c0d82b32febe83657bfee292e4eadc"
   },
   {
     "url": "component---cache-caches-gatsby-plugin-offline-app-shell-js-ad6431e4664bcf916d19.js"
@@ -54,7 +54,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/2658404678.json",
-    "revision": "49772848cf15a1706e55d07dd06e8c87"
+    "revision": "74ee7182fc39480f77488362a1838557"
   },
   {
     "url": "page-data/sq/d/3396289872.json",
@@ -62,7 +62,7 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/sq/d/4159277207.json",
-    "revision": "121f2292aa93a8a37b0dd38b3881e10c"
+    "revision": "606880e4b537f4bed73bdee4e8af6a59"
   },
   {
     "url": "page-data/sq/d/619853725.json",
@@ -70,10 +70,10 @@ self.__precacheManifest = [
   },
   {
     "url": "page-data/app-data.json",
-    "revision": "9a4e72e66ccf42669bad9122f2983d56"
+    "revision": "46123a3518b10b7d47eb402c978320b2"
   },
   {
-    "url": "polyfill-25b73876df0a2c080a82.js"
+    "url": "polyfill-b1e8269bf7d82e5fa523.js"
   },
   {
     "url": "manifest.json",
@@ -173,7 +173,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/sin-sinoalice/app-9063b9389f32904d33ac.js`))) {
+  if (!resources || !(await caches.match(`/sin-sinoalice/app-1c48c4ce30e896242bf9.js`))) {
     return await fetch(event.request)
   }
 
