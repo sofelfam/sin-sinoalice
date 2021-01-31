@@ -371,9 +371,10 @@ const NightmareTimerTable = (props: any) => {
     now.setMilliseconds(0);
     return now;
   }
-  
-  const audio_notification = new Audio("../../static/sounds/cursor2.mp3");
-  const audio_timeup = new Audio("../../static/sounds/warning1.mp3");
+  if(typeof window != "undefined") {
+    const audio_notification = new Audio("../../static/sounds/cursor2.mp3");
+    const audio_timeup = new Audio("../../static/sounds/warning1.mp3");
+  }
       
   //コロシアム残り時間
   const [coloCount, setColoCount] = useState(new Date());
