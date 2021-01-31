@@ -84,22 +84,21 @@ const Layout: React.FC = ({ children }) => {
       MuiListSubheader: {
         root: {
           fontSize: '2rem',
-          fontFamily: ['Segoe UI', 'Noto Sans JP'].join(','),
+          fontFamily: ['"Segoe UI"', '"Noto Sans JP" !important'].join(','),
         },
       },
       MuiTypography: {
         root: {
-          fontFamily: ['Segoe UI', 'Noto Sans JP'].join(','),
+          fontFamily: ['"Segoe UI"', '"Noto Sans JP" !important'].join(','),
+          color: darkMode ? theme.palette.background.default : theme.palette.text.primary + ' !important',
         },
         body1: {
           fontSize: '1.5rem',
-          fontFamily: ['Segoe UI', 'Noto Sans JP'].join(','),
         },
         h1: {
           fontSize: '3.2rem',
           fontWeight: 700,
           margin: '0.67em 0',
-          color: darkMode ? theme.palette.background.default : theme.palette.text.primary,
         },
         h6: {
           fontSize: '1.8rem',
@@ -116,6 +115,13 @@ const Layout: React.FC = ({ children }) => {
       MuiListItemIcon: {
         root: {
           fontSize: '3rem',
+        },
+      },
+      MuiTooltip: {
+        tooltip: {
+          '& .MuiTypography-root': {
+              color: theme.palette.background.default + ' !important',
+          },
         },
       },
     }

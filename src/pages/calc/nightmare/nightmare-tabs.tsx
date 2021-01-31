@@ -42,7 +42,7 @@ function a11yProps(index: number) {
 interface TimerButtonIconProps {
   className?: string,
   id: string,
-  handleNightmareButton?: (e: React.MouseEvent<HTMLElement>) => void,
+  handleNightmareButton: (e: React.MouseEvent<HTMLElement>) => void,
 }
 
 const TimerButtonIcon = (props: TimerButtonIconProps) => {
@@ -117,12 +117,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     flex: 'auto',
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
-    minWidth: `calc(5rem + ${theme.spacing(2)}px * 2 + 12px)`,
+    minWidth: `calc(100vw - ${theme.spacing(3)}px * 2 - 2vw * 2 - 5px * 2 - 16rem - 240px - 320px)`,
     maxWidth: `calc(100vw - 8rem - ${theme.spacing(3)}px * 2 - 4vw - 20px)`,
     borderRight: `1px solid ${theme.palette.divider}`,
     [theme.breakpoints.down('xs')]: {
       minWidth: `calc(5rem + ${theme.spacing(2)}px * 2)`,
-      maxWidth: `calc(100vw - 8rem - ${theme.spacing(3)}px * 2 - 4vw - 20px - 2px)`,
+      maxWidth: `calc(100vw - 8rem - 4vw - 20px - 2px)`,
       
     },
   },

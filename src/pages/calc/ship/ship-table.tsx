@@ -254,7 +254,7 @@ const ShipTable = ()  => {
           </Button>
           <Snackbar
             open={open}
-            autoHideDuration={6000}
+            autoHideDuration={3000}
             onClose={() => handleClose()}
           >
             <Alert onClose={() => handleClose()} severity="success">

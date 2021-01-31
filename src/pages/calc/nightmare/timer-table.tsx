@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Button, Paper, Tooltip, Typography } from '@material-ui/core';
+import { Button, Paper, Snackbar, Tooltip, Typography } from '@material-ui/core';
 import { SINoImage } from 'src/components';
 import TimerIcon from '@material-ui/icons/Timer';
 import DeleteIcon from '@material-ui/icons/Delete';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import NightmareTabs from './nightmare-tabs';
 
 //タイマー保持
 let colo_countdown_timer: NodeJS.Timeout,
     mare_countdown_timer: NodeJS.Timeout,
-    ready_countdown_timer: NodeJS.Timeout,
-    ready_tick_timer: NodeJS.Timeout,
-    mare_tick_timer : NodeJS.Timeout;
+    ready_countdown_timer: NodeJS.Timeout;
 //メア時間保持
 let mareTime = [0, 0];
 //タイマー測定開始時間保持
@@ -50,6 +49,9 @@ const useStyles = makeStyles((theme: Theme) =>
             filter: 'invert(25%)',
           },
         },
+      },
+      '& .MuiAlert-root': {
+        fontSize: '1.4rem',
       },
     },
     flex: {
@@ -141,6 +143,10 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+const Alert = (props: AlertProps) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 const TimerTable = (props: any) => {
   const classes = useStyles();
 
@@ -194,6 +200,65 @@ const MaretimerTable = (props: any) => {
 const TimerSettingTable = (props: any) => {
   const classes = useStyles();
 
+  //ボタントリガーアラート
+  interface SnackbarMessage {
+    message: string;
+    severity: "success" | "info" | "warning" | "error" | undefined;
+    key: number;
+  }
+  
+  const [snackPack, setSnackPack] = React.useState<SnackbarMessage[]>([]);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [messageInfo, setMessageInfo] = React.useState<SnackbarMessage | undefined>(undefined);
+
+  useEffect(() => {
+    if (snackPack.length && !messageInfo) {
+      // Set a new snack when we don't have an active one
+      setMessageInfo({ ...snackPack[0] });
+      setSnackPack((prev) => prev.slice(1));
+      setSnackbarOpen(true);
+    } else if (snackPack.length && messageInfo && snackbarOpen) {
+      // Close an active snack when a new one is added
+      setSnackbarOpen(false);
+    }
+  }, [snackPack, messageInfo, snackbarOpen]);
+
+  const handleSnackbarOpen = (message: string, severity: "success" | "info" | "warning" | "error" | undefined) => {
+    //setSnackbarOpen(true);
+    setSnackPack((prev) => [...prev, { message, severity, key: new Date().getTime() }]);
+  }
+
+  const handleSnackbarClose = (reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
+
+  const handleExited = () => {
+    setMessageInfo(undefined);
+  };
+
+  const handleRestartButton = () => {
+    props.handleRestartButton();
+    handleSnackbarOpen("[逆刻] 起動メア巻き戻し。", "info");
+  }
+
+  const handleShorteningButton = () => {
+    props.handleShorteningButton();
+    handleSnackbarOpen("[順刻] 起動メア60秒減少。", "info");
+  }
+
+  const handleMinusButton = () => {
+    props.handleMinusButton();
+    handleSnackbarOpen("-1秒しました。", "success");
+  }
+
+  const handleClearButton = () => {
+    props.handleClearButton();
+    handleSnackbarOpen("クリアしました。", "success");
+  }
+
   return(
     <>
       <h2>タイマー設定</h2>
@@ -233,7 +298,7 @@ const TimerSettingTable = (props: any) => {
                 </>
               } arrow>
               <span>
-                <Button variant="contained" disabled={props.optButtonDisabled}>
+                <Button variant="contained" disabled={props.optButtonDisabled} onClick={() => handleRestartButton()}>
                   <SINoImage className={classes.nightmareButtonIcon} data-id='6416' />
                 </Button>
               </span>
@@ -245,7 +310,7 @@ const TimerSettingTable = (props: any) => {
               </>
             } arrow>
               <span>
-                <Button variant="contained" disabled={props.optButtonDisabled}>
+                <Button variant="contained" disabled={props.optButtonDisabled} onClick={() => handleShorteningButton()}>
                   <SINoImage className={classes.nightmareButtonIcon} data-id='2672' />
                 </Button>
               </span>
@@ -257,7 +322,7 @@ const TimerSettingTable = (props: any) => {
               </>
             } arrow>
               <span>
-                <Button variant="contained" disabled={props.optButtonDisabled}>
+                <Button variant="contained" disabled={props.optButtonDisabled} onClick={() => handleMinusButton()}>
                   -1
                 </Button>
               </span>
@@ -268,12 +333,23 @@ const TimerSettingTable = (props: any) => {
               variant="contained"
               color="secondary"
               startIcon={<DeleteIcon />}
-              onClick={() => props.handleClearButton()}
+              onClick={() => handleClearButton()}
             >
               クリア
             </Button>
           </div>
         </div>
+        <Snackbar
+          key={messageInfo ? messageInfo.key : undefined}
+          open={snackbarOpen}
+          autoHideDuration={3000}
+          onClose={() => handleSnackbarClose()}
+          onExited={()=> handleExited()}
+        >
+          <Alert onClose={() => handleSnackbarClose()} severity={messageInfo ? messageInfo.severity : undefined}>
+            {messageInfo ? messageInfo.message : undefined}
+          </Alert>
+        </Snackbar>
         <div className={classes.settingnightmarePanel}>
           <NightmareTabs
             handleNightmareButton={props.handleNightmareButton}
@@ -296,7 +372,8 @@ const NightmareTimerTable = (props: any) => {
     return now;
   }
   
-  let test = nowZeroDate();
+  const audio_notification = new Audio("../../static/sounds/cursor2.mp3");
+  const audio_timeup = new Audio("../../static/sounds/warning1.mp3");
       
   //コロシアム残り時間
   const [coloCount, setColoCount] = useState(new Date());
@@ -324,7 +401,7 @@ const NightmareTimerTable = (props: any) => {
   //ボタンDisabled
   const [startButtonDisabled, setStartButtonDisabled] = useState(false);
   const [optButtonDisabled, setOptButtonDisabled] = useState(true);
-
+  
   /*
   useEffect(() => {
     const startTime = getCloseColoTime();
@@ -342,6 +419,8 @@ const NightmareTimerTable = (props: any) => {
       clearTimeout(colo_countdown_timer);
     };
   }, [coloCount]);
+
+  
 
   const getCloseColoTime = () => {
     var now = new Date();
@@ -420,7 +499,7 @@ const NightmareTimerTable = (props: any) => {
   }
 
   const tick_tock = () => {
-    //$("#audio1").get(0).play();
+    audio_notification.play();
   }
 
   let ready_countdown_bgcolorflg = false;
@@ -439,16 +518,12 @@ const NightmareTimerTable = (props: any) => {
     var endDate = getEndDate(mareTime[0], ready);
     var count = getCountdownDate(endDate);
 
-    
     if (count.getDate() != new Date().getDate()) {
+      audio_timeup.play();
       clearInterval(ready_countdown_timer);
       setReadyCount(() => nowZeroDate());
       
-      //flashBackground(start_bgcolor, 500);
-      //ready_countdown_bgcolorflg = false;
-      
-      //clearInterval(ready_tick_timer);
-      //$("#audio2").get(0).play();
+      ready_countdown_bgcolorflg = false;
     } else {
       setReadyCount(count);
 
@@ -456,11 +531,9 @@ const NightmareTimerTable = (props: any) => {
       m = count.getMinutes() * 60;
       s = count.getSeconds();
       if (m + s == 10 && ready_countdown_bgcolorflg == false) {
-        //flashBackground(start_bgcolor, 50);
         ready_countdown_bgcolorflg = true;
         
         tick_tock();
-        //ready_tick_timer = setInterval(tick_tock, 1000);
       }
     }
   };
@@ -471,18 +544,18 @@ const NightmareTimerTable = (props: any) => {
     var count = getCountdownDate(endDate);
 
     if (count.getDate() != new Date().getDate()) {
+      audio_timeup.play();
       setStartButtonDisabled(false);
       setOptButtonDisabled(true);
       setTriggers([]);
 
       clearInterval(mare_countdown_timer);
       setMareCount(() => nowZeroDate());
+      ready = new Date();
+      mareTime = [0, 0];
+      setStartActivate(false);
 
-      //flashBackground(mare_bgcolor, 500);
-      //mare_countdown_bgcolorflg = false;
-      
-      //clearInterval(mare_tick_timer);
-      //$("#audio2").get(0).play();
+      mare_countdown_bgcolorflg = false;
     } else {
       setMareCount(count);
 
@@ -490,11 +563,9 @@ const NightmareTimerTable = (props: any) => {
       m = count.getMinutes() * 60;
       s = count.getSeconds();
       if (m + s == 10 && mare_countdown_bgcolorflg == false) {
-        //flashBackground(mare_bgcolor, 50);
         mare_countdown_bgcolorflg = true;
         
         tick_tock();
-        //mare_tick_timer = setInterval(tick_tock, 1000);
       }
     }
   };
@@ -513,6 +584,18 @@ const NightmareTimerTable = (props: any) => {
 
     setStartButtonDisabled(true);
     setOptButtonDisabled(false);
+  }
+
+  const handleRestartButton = () => {
+    ready = new Date();
+  }
+
+  const handleShorteningButton = () => {
+    ready = getEndDate(-60, ready);
+  }
+  
+  const handleMinusButton = () => {
+    ready = getEndDate(-1, ready);
   }
 
   const handleClearButton = () => {
@@ -534,7 +617,10 @@ const NightmareTimerTable = (props: any) => {
   }
 
   const handleNightmareButton = (e: React.MouseEvent<HTMLElement>) => {
-    if (startActivate === false)  ready = new Date;
+    if (startActivate === false) {
+      ready = new Date;
+      tick_tock();
+    }
     setStartActivate(true);
 
     const mareReady = triggers.indexOf('90s') !== -1 ? 90 :
@@ -548,7 +634,7 @@ const NightmareTimerTable = (props: any) => {
     if (ready_countdown_timer != null) clearInterval(ready_countdown_timer);
     if (mare_countdown_timer != null) clearInterval(mare_countdown_timer);
 
-    ready_countdown_timer = setInterval(ready_countdown, 100);
+    if (mareActivate != 0) ready_countdown_timer = setInterval(ready_countdown, 100);
     mare_countdown_timer = setInterval(mare_countdown, 100);
     
     setStartButtonDisabled(true);
@@ -582,6 +668,9 @@ const NightmareTimerTable = (props: any) => {
             optButtonDisabled={optButtonDisabled}
             startButtonDisabled={startButtonDisabled}
             handleStartButton={handleStartButton}
+            handleRestartButton={handleRestartButton}
+            handleShorteningButton={handleShorteningButton}
+            handleMinusButton={handleMinusButton}
             handleClearButton={handleClearButton}
             handleNightmareButton={handleNightmareButton}
           />

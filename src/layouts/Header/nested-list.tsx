@@ -5,14 +5,15 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Collapse from '@material-ui/core/Collapse';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
 import TimerIcon from '@material-ui/icons/Timer';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import ContactsIcon from '@material-ui/icons/Contacts';
+import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
+import FlareIcon from '@material-ui/icons/Flare';
+import DirectionsBoatIcon from '@material-ui/icons/DirectionsBoat';
+import InsertChartIcon from '@material-ui/icons/InsertChart';
+import { SwordIcon } from 'src/components/icons'
 import { Divider } from '@material-ui/core';
 import { Link } from 'gatsby';
 import { NestedLists } from 'src/components';
@@ -50,53 +51,36 @@ function NestedList() {
       }
       className={classes.root}
     >
-      <ListItem button key='ダメージ計算'>
-        <ListItemIcon><InboxIcon /></ListItemIcon>
-        <ListItemText primary='ダメージ計算'/>
-      </ListItem>
-      <ListItem button key='バフデバフ計算'>
-        <ListItemIcon><InboxIcon /></ListItemIcon>
-        <ListItemText primary='バフデバフ計算'/>
-      </ListItem>
-      <ListItem button key='回復計算'>
-        <ListItemIcon><InboxIcon /></ListItemIcon>
-        <ListItemText primary='回復計算'/>
-      </ListItem>
-      <ListItem button key='シップ計算' component={Link} to={'/calc/ship'}>
-        <ListItemIcon><InboxIcon /></ListItemIcon>
-        <ListItemText primary='シップ計算'/>
+      <NestedLists
+        topIcon={<SwordIcon />}
+        topText={"ダメージ計算"}
+        lists={[{icon: <EventNoteIcon />, text: "コロシアム", link: "/"},
+                {icon: <EventNoteIcon />, text: "モノガタリ", link: "/"}]}
+      />
+      <NestedLists
+        topIcon={<LocalLibraryIcon />}
+        topText={"バフデバフ計算"}
+        lists={[{icon: <EventNoteIcon />, text: "コロシアム", link: "/"},
+                {icon: <EventNoteIcon />, text: "モノガタリ", link: "/"}]}
+      />
+      <NestedLists
+        topIcon={<FlareIcon />}
+        topText={"回復計算"}
+        lists={[{icon: <EventNoteIcon />, text: "コロシアム", link: "/"},
+                {icon: <EventNoteIcon />, text: "モノガタリ", link: "/"}]}
+      />
+      <ListItem button key='獲得イノチ量計算' component={Link} to={'/'}>
+        <ListItemIcon><InsertChartIcon /></ListItemIcon>
+        <ListItemText primary='獲得イノチ量計算'/>
       </ListItem>
       <ListItem button key='ナイトメア時間計算' component={Link} to={'/calc/nightmare'}>
         <ListItemIcon><TimerIcon /></ListItemIcon>
         <ListItemText primary='ナイトメア時間計算'/>
       </ListItem>
-      <ListItem button onClick={handleClick}>
-        <ListItemIcon><InboxIcon /></ListItemIcon>
-        <ListItemText primary="Test" />
-        {open ? <ExpandLess /> : <ExpandMore />}
+      <ListItem button key='シップ計算' component={Link} to={'/calc/ship'}>
+        <ListItemIcon><DirectionsBoatIcon /></ListItemIcon>
+        <ListItemText primary='シップ計算'/>
       </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Test2" />
-          </ListItem>
-          <ListItem button className={classes.nested}>
-            <ListItemIcon>
-              <StarBorder />
-            </ListItemIcon>
-            <ListItemText primary="Test2" />
-          </ListItem>
-        </List>
-      </Collapse>
-      <NestedLists
-        topIcon={<StarBorder />}
-        topText={"this"}
-        lists={[{icon: <InboxIcon />, text: "test", link: "/"},
-                {icon: <EventNoteIcon />, text: "test2", link: "test"}]}
-      />
       <Divider />
       <List
         component="nav"
