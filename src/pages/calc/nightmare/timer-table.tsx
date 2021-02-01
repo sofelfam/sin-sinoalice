@@ -17,6 +17,8 @@ let colo_countdown_timer: NodeJS.Timeout,
 let mareTime = [0, 0];
 //タイマー測定開始時間保持
 let ready = new Date();
+//残り時間を保持
+let leftTime = new Date();
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,6 +66,10 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: '0 5px',
       position: 'relative',
     },
+    nightmareIcon: {
+      width: '4rem',
+      height: '4rem',
+    },
 
     timerTable: {
       width: 'fit-content',
@@ -83,6 +89,10 @@ const useStyles = makeStyles((theme: Theme) =>
       border: 'solid 1px lightgray',
       width: '6rem',
       height: '6rem',
+    },
+    nightmareTimerIcon: {
+      width: '100%',
+      height: '100%',
     },
     timeDisplayCell: {
       border: 'solid 1px lightgray',
@@ -136,10 +146,6 @@ const useStyles = makeStyles((theme: Theme) =>
       height: '5rem',
       fontSize: '1.8rem',
     },
-    nightmareButtonIcon: {
-      width: '4rem',
-      height: '4rem',
-    },
   }),
 );
 
@@ -160,15 +166,15 @@ const TimerTable = (props: any) => {
           <Paper variant="outlined" square className={classes.timeDisplayCell}>{props.coloCountText}</Paper>
         </div>
         <div className={classes.flex}>
-          <Paper variant="outlined" square className={classes.timerIconCell}></Paper>
+          <Paper variant="outlined" square className={classes.timerIconCell}><SINoImage className={classes.nightmareTimerIcon} data-id={props.coloMareId} /></Paper>
           <div>
             <div className={classes.flex}>
               <Paper variant="outlined" square className={classes.timerLabelCell}>発動</Paper>
-              <Paper variant="outlined" square className={classes.timeDisplayCell}>00:00:00</Paper>
+              <Paper variant="outlined" square className={classes.timeDisplayCell}>{props.coloMareStartTime}</Paper>
             </div>
             <div className={classes.flex}>
               <Paper variant="outlined" square className={classes.timerLabelCell}>終了</Paper>
-              <Paper variant="outlined" square className={classes.timeDisplayCell}>__:__:__</Paper>
+              <Paper variant="outlined" square className={classes.timeDisplayCell}>{props.coloMareEndTime}</Paper>
             </div>
           </div>
         </div>
@@ -267,12 +273,12 @@ const TimerSettingTable = (props: any) => {
           <ToggleButtonGroup value={props.triggers} onChange={props.handleTriggers} aria-label="text formatting">
             <ToggleButton value="short" aria-label="3rdユノ">
               <Tooltip title={<Typography variant="h6">3rdユノ</Typography>} arrow>
-                <SINoImage className={classes.nightmareButtonIcon} data-id='5975' />
+                <SINoImage className={classes.nightmareIcon} data-id='5975' />
               </Tooltip>
             </ToggleButton>
             <ToggleButton value="90s" aria-label="ギガース">
               <Tooltip title={<Typography variant="h6">ギガース</Typography>} arrow>
-                <SINoImage className={classes.nightmareButtonIcon} data-id='6324' />
+                <SINoImage className={classes.nightmareIcon} data-id='6324' />
               </Tooltip>
             </ToggleButton>
           </ToggleButtonGroup>
@@ -299,7 +305,7 @@ const TimerSettingTable = (props: any) => {
               } arrow>
               <span>
                 <Button variant="contained" disabled={props.optButtonDisabled} onClick={() => handleRestartButton()}>
-                  <SINoImage className={classes.nightmareButtonIcon} data-id='6416' />
+                  <SINoImage className={classes.nightmareIcon} data-id='6416' />
                 </Button>
               </span>
             </Tooltip>
@@ -311,7 +317,7 @@ const TimerSettingTable = (props: any) => {
             } arrow>
               <span>
                 <Button variant="contained" disabled={props.optButtonDisabled} onClick={() => handleShorteningButton()}>
-                  <SINoImage className={classes.nightmareButtonIcon} data-id='2672' />
+                  <SINoImage className={classes.nightmareIcon} data-id='2672' />
                 </Button>
               </span>
             </Tooltip>
@@ -368,12 +374,8 @@ const NightmareTimerTable = (props: any) => {
     now.setHours(0);
     now.setMinutes(0);
     now.setSeconds(0);
-    now.setMilliseconds(0);
+    //now.setMilliseconds(0);
     return now;
-  }
-  if(typeof window != "undefined") {
-    const audio_notification = new Audio("../../static/sounds/cursor2.mp3");
-    const audio_timeup = new Audio("../../static/sounds/warning1.mp3");
   }
       
   //コロシアム残り時間
@@ -384,9 +386,10 @@ const NightmareTimerTable = (props: any) => {
   const [mareCount, setMareCount] = useState(nowZeroDate());
   //タイマーが起動しているかの判定
   const [startActivate, setStartActivate] = useState(false);
-
   //発動・効果タイミング
-  const [coloMareTime, setColoMareTime] = useState(['00:00:00', '00:00:00']);
+  const [coloMareTime, setColoMareTime] = useState([nowZeroDate(), nowZeroDate()]);
+  //メアID
+  const [mareId, setMareId] = useState("0465");
 
   //スタートボタン押下時間
   //const [ready, setReady] = useState(new Date());
@@ -421,7 +424,11 @@ const NightmareTimerTable = (props: any) => {
     };
   }, [coloCount]);
 
-  
+  const [audio, setAudio] = useState<HTMLAudioElement[]>();
+  useEffect(() => {
+    setAudio([new Audio("../../static/sounds/cursor2.mp3"),
+              new Audio("../../static/sounds/warning1.mp3")])
+  }, []);
 
   const getCloseColoTime = () => {
     var now = new Date();
@@ -456,7 +463,8 @@ const NightmareTimerTable = (props: any) => {
     hh = ("0" + date.getHours()).slice(-2);
     mm = ("0" + date.getMinutes()).slice(-2);
     ss = ("0" + date.getSeconds()).slice(-2);
-    dd =  (date.getMilliseconds() + "0").slice(0, 2);
+    //dd =  (date.getMilliseconds() + "0").slice(0, 2);
+    dd = 0;
     return hh + ":" + mm + ":" + ss + ":" + dd;
   }
 
@@ -467,7 +475,7 @@ const NightmareTimerTable = (props: any) => {
     date.setHours(Number(dateArray[0]));
     date.setMinutes(Number(dateArray[1]));
     date.setSeconds(Number(dateArray[2]));
-    date.setMilliseconds(Number(dateArray[3]));
+    //date.setMilliseconds(Number(dateArray[3]));
 
     return date;
   }
@@ -499,20 +507,20 @@ const NightmareTimerTable = (props: any) => {
     return count;
   }
 
-  const tick_tock = () => {
-    audio_notification.play();
+  const tick_tock = (i: number) => {
+    if(audio && audio[i]) audio[i].play();
   }
 
   let ready_countdown_bgcolorflg = false;
   let mare_countdown_bgcolorflg = false;
 
+  /*
   const flashBackground = (bgcolor: string, outtime: number) => {
-    /*
     $("BODY").animate({ backgroundColor: bgcolor }, 50, function() {
       $(this).animate({ backgroundColor: "#ffffff" }, outtime);
     });
-    */
   }
+  */
 
   //readyカウントダウン
   const ready_countdown = () => {
@@ -520,7 +528,7 @@ const NightmareTimerTable = (props: any) => {
     var count = getCountdownDate(endDate);
 
     if (count.getDate() != new Date().getDate()) {
-      audio_timeup.play();
+      tick_tock(1);
       clearInterval(ready_countdown_timer);
       setReadyCount(() => nowZeroDate());
       
@@ -528,13 +536,10 @@ const NightmareTimerTable = (props: any) => {
     } else {
       setReadyCount(count);
 
-      var m, s;
-      m = count.getMinutes() * 60;
-      s = count.getSeconds();
-      if (m + s == 10 && ready_countdown_bgcolorflg == false) {
+      if ((count.getMinutes() * 60 + count.getSeconds() == 10) && ready_countdown_bgcolorflg == false) {
         ready_countdown_bgcolorflg = true;
         
-        tick_tock();
+        tick_tock(0);
       }
     }
   };
@@ -545,7 +550,7 @@ const NightmareTimerTable = (props: any) => {
     var count = getCountdownDate(endDate);
 
     if (count.getDate() != new Date().getDate()) {
-      audio_timeup.play();
+      tick_tock(1);
       setStartButtonDisabled(false);
       setOptButtonDisabled(true);
       setTriggers([]);
@@ -560,25 +565,19 @@ const NightmareTimerTable = (props: any) => {
     } else {
       setMareCount(count);
 
-      var m, s;
-      m = count.getMinutes() * 60;
-      s = count.getSeconds();
-      if (m + s == 10 && mare_countdown_bgcolorflg == false) {
+      if ((count.getMinutes() * 60 + count.getSeconds() == 10) && mare_countdown_bgcolorflg == false) {
         mare_countdown_bgcolorflg = true;
         
-        tick_tock();
+        tick_tock(0);
       }
     }
   };
 
   const handleStartButton = () => {
     setStartActivate(true);
-    //last_time_act = last_time;
-
-    //setReady(now);
     ready = new Date();
-    
-    tick_tock();
+    leftTime = coloCount;
+    tick_tock(0);
 
     if (ready_countdown_timer != null) clearInterval(ready_countdown_timer);
     if (mare_countdown_timer != null) clearInterval(mare_countdown_timer);
@@ -589,14 +588,22 @@ const NightmareTimerTable = (props: any) => {
 
   const handleRestartButton = () => {
     ready = new Date();
+    setColoMareTime([getEndDate(-1-mareTime[0], coloCount), getEndDate(-1-mareTime[0]-mareTime[1], coloCount)]);
+    
+    if (ready_countdown_timer != null) clearInterval(ready_countdown_timer);
+    if (mare_countdown_timer != null) clearInterval(mare_countdown_timer);
+    if (mareTime[1] != 0) ready_countdown_timer = setInterval(ready_countdown, 50);
+    mare_countdown_timer = setInterval(mare_countdown, 50);
   }
 
   const handleShorteningButton = () => {
     ready = getEndDate(-60, ready);
+    setColoMareTime([getEndDate(60, coloMareTime[0]), getEndDate(60, coloMareTime[1])]);
   }
   
   const handleMinusButton = () => {
     ready = getEndDate(-1, ready);
+    setColoMareTime([getEndDate(1, coloMareTime[0]), getEndDate(1, coloMareTime[1])]);
   }
 
   const handleClearButton = () => {
@@ -608,6 +615,7 @@ const NightmareTimerTable = (props: any) => {
     ready = new Date();
     mareTime = [0, 0];
     setStartActivate(false);
+    setColoMareTime([initTime, initTime])
 
     if (ready_countdown_timer != null) clearInterval(ready_countdown_timer);
     if (mare_countdown_timer != null) clearInterval(mare_countdown_timer);
@@ -620,7 +628,8 @@ const NightmareTimerTable = (props: any) => {
   const handleNightmareButton = (e: React.MouseEvent<HTMLElement>) => {
     if (startActivate === false) {
       ready = new Date;
-      tick_tock();
+      leftTime = coloCount;
+      tick_tock(0);
     }
     setStartActivate(true);
 
@@ -628,15 +637,18 @@ const NightmareTimerTable = (props: any) => {
                       triggers.indexOf('short') !== -1 ? 5 :
                       e.currentTarget.dataset.ready === undefined ? 0 : +e.currentTarget.dataset.ready;
     const mareActivate = e.currentTarget.dataset.activate === undefined ? 0 : +e.currentTarget.dataset.activate;
-
     //setMareTime([mareReady, mareActivate]);
     mareTime = [mareReady, mareActivate];
+
+    const mareStartDate = getEndDate(-1-mareTime[0], leftTime);
+    const mareEndDate = getEndDate(-1-mareTime[0]-mareTime[1], leftTime);
+    setColoMareTime([mareStartDate, mareEndDate]);
+    setMareId(e.currentTarget.dataset.id === undefined ? "0465" : e.currentTarget.dataset.id);
     
     if (ready_countdown_timer != null) clearInterval(ready_countdown_timer);
     if (mare_countdown_timer != null) clearInterval(mare_countdown_timer);
-
-    if (mareActivate != 0) ready_countdown_timer = setInterval(ready_countdown, 100);
-    mare_countdown_timer = setInterval(mare_countdown, 100);
+    if (mareActivate != 0) ready_countdown_timer = setInterval(ready_countdown, 50);
+    mare_countdown_timer = setInterval(mare_countdown, 50);
     
     setStartButtonDisabled(true);
     setOptButtonDisabled(false);
@@ -658,6 +670,9 @@ const NightmareTimerTable = (props: any) => {
         <div className={classes.timerPanel}>
           <TimerTable
             coloCountText={getTimeText(coloCount).slice(0,8)}
+            coloMareStartTime={getTimeText(coloMareTime[0]).slice(0,8)}
+            coloMareEndTime={getTimeText(coloMareTime[1]).slice(0,8)}
+            coloMareId={mareId}
           />
           <MaretimerTable
             readyCountText={getTimeText(readyCount).slice(0,8)}

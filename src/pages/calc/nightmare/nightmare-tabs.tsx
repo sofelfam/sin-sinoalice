@@ -76,6 +76,7 @@ const TimerButtonIcon = (props: TimerButtonIconProps) => {
                 variant="contained"
                 className={className}
                 onClick={(e) => handleNightmareButton(e)}
+                data-id={id}
                 data-ready={e.ready}
                 data-activate={e.activate}
               >
