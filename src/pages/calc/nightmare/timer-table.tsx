@@ -611,7 +611,7 @@ const NightmareTimerTable = (props: any) => {
     
     if (ready_countdown_timer != null) clearInterval(ready_countdown_timer);
     if (mare_countdown_timer != null) clearInterval(mare_countdown_timer);
-    if (mareTime[1] != 0) ready_countdown_timer = setInterval(ready_countdown, 50);
+    ready_countdown_timer = setInterval(ready_countdown, 50);
     mare_countdown_timer = setInterval(mare_countdown, 50);
   }
 
@@ -668,7 +668,7 @@ const NightmareTimerTable = (props: any) => {
     
     if (ready_countdown_timer != null) clearInterval(ready_countdown_timer);
     if (mare_countdown_timer != null) clearInterval(mare_countdown_timer);
-    if (mareActivate != 0) ready_countdown_timer = setInterval(ready_countdown, 50);
+    ready_countdown_timer = setInterval(ready_countdown, 50);
     mare_countdown_timer = setInterval(mare_countdown, 50);
     
     setStartButtonDisabled(true);
