@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Button, Paper, Snackbar, Tooltip, Typography } from '@material-ui/core';
+import { Button, Divider, Hidden, Paper, Snackbar, Tooltip, Typography } from '@material-ui/core';
 import { SINoImage } from 'src/components';
 import TimerIcon from '@material-ui/icons/Timer';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) =>
         padding: '2px',
         '&:hover': {
           backgroundColor: 'rgba(0, 0, 0, 0.1)',
-          filter: 'invert(5%)',
+          filter: 'invert(10%)',
         },
         '&.Mui-selected': {
           backgroundColor: 'rgba(0, 0, 0, 0.24)',
@@ -58,6 +58,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     flex: {
       display: 'flex',
+    },
+    divider: {
+      margin: '10px auto',
     },
     timerPanel: {
       margin: '0 5px',
@@ -79,7 +82,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 2,
       height: '3rem',
       padding: '1px 5px',
-      background: '#FF7F50',
+      backgroundColor: theme.palette.primary.light,
       color: '#FFFFFF',
       textAlign: 'center',
       fontSize: '2rem',
@@ -127,7 +130,15 @@ const useStyles = makeStyles((theme: Theme) =>
         margin: '3px',
         fontSize: '1.6rem',
       },
-    },    
+    },
+    optButton: {
+      "&:disabled": {
+        filter: 'invert(20%)',
+      },
+      '&:hover': {
+        filter: 'invert(10%)',
+      },
+    },
     settingClearPanel: {
       margin: '0 0 0 auto',
       '& .MuiButton-root': {
@@ -141,6 +152,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
 
     timerButton: {
+      backgroundColor: theme.palette.primary.light,
       width: '100%',
       minWidth: '100px',
       height: '5rem',
@@ -158,8 +170,6 @@ const TimerTable = (props: any) => {
 
   return(
     <>
-      <h2>コロシアム残り時間</h2>
-
       <Paper square className={classes.timerTable}>
         <div className={classes.flex}>
           <Paper variant="outlined" square className={classes.timerLabelCell}>全体時間</Paper>
@@ -179,6 +189,9 @@ const TimerTable = (props: any) => {
           </div>
         </div>
       </Paper>
+      <Hidden smUp implementation="css">
+        <Divider light className={classes.divider} />
+      </Hidden>
     </>
   )
 };
@@ -188,7 +201,9 @@ const MaretimerTable = (props: any) => {
 
   return(
     <>
-      <h2>タイマー</h2>
+      <Hidden xsDown implementation="css">
+       <h2>タイマー</h2>
+      </Hidden>
       <Paper square className={classes.timerTable}>
         <div className={classes.flex}>
           <Paper variant="outlined" square className={classes.timerLabelCell}>発動時間</Paper>
@@ -199,6 +214,9 @@ const MaretimerTable = (props: any) => {
           <Paper variant="outlined" square className={classes.timeDisplayCell}>{props.mareCountText}</Paper>
         </div>
       </Paper>
+      <Hidden smUp implementation="css">
+        <Divider light className={classes.divider} />
+      </Hidden>
     </>
   )
 };
@@ -267,7 +285,9 @@ const TimerSettingTable = (props: any) => {
 
   return(
     <>
-      <h2>タイマー設定</h2>
+      <Hidden xsDown implementation="css">
+        <h2>タイマー設定</h2>
+      </Hidden>
       <div className={classes.settingTable}>
         <div className={classes.settingTriggerTable}>
           <ToggleButtonGroup value={props.triggers} onChange={props.handleTriggers} aria-label="text formatting">
@@ -304,7 +324,7 @@ const TimerSettingTable = (props: any) => {
                 </>
               } arrow>
               <span>
-                <Button variant="contained" disabled={props.optButtonDisabled} onClick={() => handleRestartButton()}>
+                <Button variant="contained" className={classes.optButton} disabled={props.optButtonDisabled} onClick={() => handleRestartButton()}>
                   <SINoImage className={classes.nightmareIcon} data-id='6416' />
                 </Button>
               </span>
@@ -316,7 +336,7 @@ const TimerSettingTable = (props: any) => {
               </>
             } arrow>
               <span>
-                <Button variant="contained" disabled={props.optButtonDisabled} onClick={() => handleShorteningButton()}>
+                <Button variant="contained" className={classes.optButton} disabled={props.optButtonDisabled} onClick={() => handleShorteningButton()}>
                   <SINoImage className={classes.nightmareIcon} data-id='2672' />
                 </Button>
               </span>
@@ -328,7 +348,7 @@ const TimerSettingTable = (props: any) => {
               </>
             } arrow>
               <span>
-                <Button variant="contained" disabled={props.optButtonDisabled} onClick={() => handleMinusButton()}>
+                <Button variant="contained" className={classes.optButton} disabled={props.optButtonDisabled} onClick={() => handleMinusButton()}>
                   -1
                 </Button>
               </span>
@@ -583,7 +603,6 @@ const NightmareTimerTable = (props: any) => {
     if (mare_countdown_timer != null) clearInterval(mare_countdown_timer);
 
     setStartButtonDisabled(true);
-    setOptButtonDisabled(false);
   }
 
   const handleRestartButton = () => {
@@ -598,11 +617,13 @@ const NightmareTimerTable = (props: any) => {
 
   const handleShorteningButton = () => {
     ready = getEndDate(-60, ready);
+    leftTime = getEndDate(60, leftTime);
     setColoMareTime([getEndDate(60, coloMareTime[0]), getEndDate(60, coloMareTime[1])]);
   }
   
   const handleMinusButton = () => {
     ready = getEndDate(-1, ready);
+    leftTime = getEndDate(1, leftTime);
     setColoMareTime([getEndDate(1, coloMareTime[0]), getEndDate(1, coloMareTime[1])]);
   }
 
