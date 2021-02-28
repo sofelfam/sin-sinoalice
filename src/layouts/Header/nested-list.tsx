@@ -69,6 +69,10 @@ function NestedList() {
         lists={[{icon: <EventNoteIcon />, text: "コロシアム", link: "/"},
                 {icon: <EventNoteIcon />, text: "モノガタリ", link: "/"}]}
       />
+      <ListItem button key='コンボ計算' component={Link} to={'/calc/combo'}>
+        <ListItemIcon><InsertChartIcon /></ListItemIcon>
+        <ListItemText primary='コンボ計算'/>
+      </ListItem>
       <ListItem button key='獲得イノチ量計算' component={Link} to={'/'}>
         <ListItemIcon><InsertChartIcon /></ListItemIcon>
         <ListItemText primary='獲得イノチ量計算'/>

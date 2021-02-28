@@ -117,6 +117,11 @@ const Layout: React.FC = ({ children }) => {
           fontSize: '3rem',
         },
       },
+      MuiButton: {
+        root: {
+          minWidth: '1rem',
+        },
+      },
       MuiTooltip: {
         tooltip: {
           '& .MuiTypography-root': {

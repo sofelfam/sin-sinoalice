@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
         '& .MuiInput-root': {
           width: '12rem',
           fontSize: '1.8rem',
-        },          
+        },
       },
       '& .MuiAlert-root': {
         fontSize: '1.4rem',

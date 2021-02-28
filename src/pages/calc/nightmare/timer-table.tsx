@@ -606,6 +606,10 @@ const NightmareTimerTable = (props: any) => {
   }
 
   const handleRestartButton = () => {
+    //キマイラ、ウインゴ設置後起動メアに対して正常に動作しない（mareTime[0]がそれになっている）
+    //設置型起動の場合、mareTime[2]に元の時間を保持、この部分のみで[2]チェック
+    
+
     ready = new Date();
     setColoMareTime([getEndDate(-1-mareTime[0], coloCount), getEndDate(-1-mareTime[0]-mareTime[1], coloCount)]);
     
